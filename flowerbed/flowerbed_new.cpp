@@ -3,30 +3,29 @@
 using namespace std;
 
 int main(){
-    vector<int> flowerbed = {0,0,0,0,1,0,1};
-    int n = 3;
+    vector<int> flowerbed = {0,0,1,0,0,0,1,0,0,0};
+    int n = 4;
 
-    int k = 0;
+    int emptyCounter = 1;
+    int placedCounter = 0;
     for (int i = 0; i < flowerbed.size(); i++){
         if (flowerbed[i] == 0){
-            bool isLeftPlotEmpty = (i == 0) || (flowerbed[i-1] == 0);
-            bool isRightPlotEmpty = (i == flowerbed.size()-1) || (flowerbed[i+1] == 0);
-
-            if (isLeftPlotEmpty && isRightPlotEmpty){
-                k++;
-                i++;
-                if ((k-1)/2 >= n){
-                    return true;
-                }
-            }
+            emptyCounter++;
+        }
+        else {
+            placedCounter += (emptyCounter-1)/2;
+            emptyCounter = 0;
         }
     
     }
+    placedCounter += emptyCounter/2;
 
-    if (n <= k){
-        cout << "true" << endl;
+    if (placedCounter >= n){
+        cout << "True" <<endl;
     }
-    else cout << "false" << endl;
+    else cout << "False" << endl;
+  
     
     return 0;
+}
     
